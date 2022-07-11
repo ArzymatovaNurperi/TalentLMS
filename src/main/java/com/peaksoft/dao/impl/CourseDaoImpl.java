@@ -49,13 +49,16 @@ public class CourseDaoImpl implements CourseDAO {
     }
 
     @Override
-    public void updateCourse(Course course) {
-    entityManager.merge(course);
+    public void updateCourse(Course course,Long id) {
+        Course course1=getCourseById(id);
+        course1.setCourseName(course.getCourseName());
+        course1.setDurationMonth(course.getDurationMonth());
+    entityManager.merge(course1);
     }
 
     @Override
     public void deleteCourse(Course course) {
-        entityManager.merge(entityManager.contains(course)?course:entityManager.merge(course));
+        entityManager.remove(entityManager.contains(course)?course:entityManager.merge(course));
 
     }
 }

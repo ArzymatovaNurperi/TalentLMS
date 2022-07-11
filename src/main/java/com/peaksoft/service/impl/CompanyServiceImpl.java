@@ -33,8 +33,8 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public void updateCompany(Company company) {
-    companyDAO.updateCompany(company);
+    public void updateCompany(Company company,Long id) {
+    companyDAO.updateCompany(company,id);
     }
 
     @Override

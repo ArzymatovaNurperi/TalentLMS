@@ -36,19 +36,19 @@ public class CompanyController {
         return "redirect:/companies";
     }
 
-    @GetMapping("/updateCompany")
-    public String updateCompany(@RequestParam("companyId")Long id,Model model){
-        Company company=companyService.getCompanyById(id);
-        model.addAttribute("company",company);
+    @GetMapping("/{id}/updateCompany")
+    public String updateCompany(@PathVariable("id")Long id,Model model){
+
+        model.addAttribute("company",companyService.getCompanyById(id));
         return "company/updateCompany";
     }
-    @PatchMapping("/saveUpdateComapny")
-    public String saveUpdateCompany(@ModelAttribute("company")Company company){
-        companyService.updateCompany(company);
+    @PatchMapping("/{id}")
+    public String saveUpdateCompany(@PathVariable("id")Long id,@ModelAttribute("company")Company company){
+        companyService.updateCompany(company,id);
         return "redirect:/companies";
     }
-    @DeleteMapping("/deleteCompany")
-    public String deleteCompany(@RequestParam("companyId")Long id){
+    @DeleteMapping("/{id}")
+    public String deleteCompany(@PathVariable("id")Long id){
         companyService.deleteCompany(companyService.getCompanyById(id));
         return "redirect:/companies";
     }

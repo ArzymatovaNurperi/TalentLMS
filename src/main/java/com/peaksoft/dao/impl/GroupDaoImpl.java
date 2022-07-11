@@ -44,6 +44,9 @@ public class GroupDaoImpl implements GroupDAO {
     @Override
     public void updateGroup(Group group,Long id) {
        Group group1=getGroupById(id);
+       group1.setGroupName(group.getGroupName());
+       group1.setDateOfCreate(group.getDateOfCreate());
+       group1.setDateOfFinish(group.getDateOfFinish());
        entityManager.merge(group1);
 
     }

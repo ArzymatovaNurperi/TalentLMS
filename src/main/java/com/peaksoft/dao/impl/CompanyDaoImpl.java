@@ -40,8 +40,11 @@ public class CompanyDaoImpl implements CompanyDAO {
     }
 
     @Override
-    public void updateCompany(Company company) {
-    entityManager.merge(company);
+    public void updateCompany(Company company,Long id) {
+        Company company1=getCompanyById(id);
+        company1.setCompanyName(company.getCompanyName());
+        company1.setLocatedCountry(company.getLocatedCountry());
+    entityManager.merge(company1);
     }
 
     @Override

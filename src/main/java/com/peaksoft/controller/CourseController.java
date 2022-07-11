@@ -49,23 +49,22 @@ public class CourseController {
         return "redirect:/courses";
     }
 
-    @GetMapping("/updateCourse")
-    public String updateCourse(@RequestParam("courseId") Long id, Model model){
+    @GetMapping("/{id}/updateCourse")
+    public String updateCourse(@PathVariable("id") Long id, Model model){
         Course course =  coursesService.getCourseById(id);
         model.addAttribute("course", course);
-        return "courses/updateCourse";
+        return "course/updateCourse";
     }
 
-    @PostMapping("/saveUpdateCourse")
-    public String saveUpdateCourse(@RequestParam("companyId") Long id,@ModelAttribute("course") Course course){
-        course.setCompany(companyService.getCompanyById(id));
-        coursesService.updateCourse(course);
+    @PatchMapping ("/{id}")
+    public String saveUpdateCourse(@PathVariable("id") Long id,@ModelAttribute("course") Course course){
+        coursesService.updateCourse(course,id);
         return "redirect:/courses";
     }
 
-    @DeleteMapping("/deleteCourse")
-    public String deleteCourse(@RequestParam("courseId") Long id, @RequestParam("companyId") Long id2){
+    @DeleteMapping("/{id}")
+    public String deleteCourse(@PathVariable("id")Long id){
         coursesService.deleteCourse(coursesService.getCourseById(id));
-        return "";
+        return "redirect:/courses";
     }
 }
