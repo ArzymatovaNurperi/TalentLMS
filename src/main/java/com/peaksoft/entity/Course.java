@@ -35,7 +35,7 @@ public class Course {
             inverseJoinColumns = @JoinColumn(name = "groups_id"))
     private List<Group>groups;
 
-    @OneToOne(fetch = FetchType.EAGER,cascade = {CascadeType.REFRESH,CascadeType.MERGE})
+    @OneToOne(fetch = FetchType.EAGER,cascade = {CascadeType.REFRESH,CascadeType.MERGE},mappedBy ="course")
     private Teacher teacher;
 
     @Transient

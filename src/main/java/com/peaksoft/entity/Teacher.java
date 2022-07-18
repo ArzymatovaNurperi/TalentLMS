@@ -24,7 +24,7 @@ public class Teacher {
     private String lastName;
     @Column
     private String email;
-    @OneToOne(cascade = {CascadeType.REFRESH,CascadeType.MERGE},mappedBy = "teacher")
+    @OneToOne(cascade = {CascadeType.REFRESH,CascadeType.MERGE})
     private Course course;
 
     @Transient

@@ -1,7 +1,10 @@
 package com.peaksoft.dao.impl;
 
+import com.peaksoft.dao.CourseDAO;
 import com.peaksoft.dao.TeacherDAO;
+import com.peaksoft.entity.Course;
 import com.peaksoft.entity.Teacher;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -16,6 +19,13 @@ public class TeacherDaoImpl implements TeacherDAO {
     @PersistenceContext
     EntityManager entityManager;
 
+    private final CourseDAO courseDAO;
+
+    @Autowired
+    public TeacherDaoImpl(CourseDAO courseDAO) {
+        this.courseDAO = courseDAO;
+    }
+
     @Override
     public List<Teacher> getAllTeachers() {
         List<Teacher>teachers=entityManager.createQuery("from Teacher",Teacher.class).getResultList();
@@ -25,8 +35,10 @@ public class TeacherDaoImpl implements TeacherDAO {
     }
 
     @Override
-    public void saveTeacher(Teacher teacher) {
-        entityManager.merge(teacher);
+    public void saveTeacher(Teacher teacher,Long courseId) {
+        Course course=courseDAO.getCourseById(courseId);
+        teacher.setCourse(course);
+        entityManager.persist(teacher);
     }
 
     @Override
@@ -41,8 +53,12 @@ public class TeacherDaoImpl implements TeacherDAO {
     }
 
     @Override
-    public void updateTeacher(Teacher teacher) {
-        entityManager.merge(teacher);
+    public void updateTeacher(Teacher teacher,Long id) {
+        Teacher teacher1=getTeacherById(id);
+        teacher1.setFirstName(teacher.getFirstName());
+        teacher1.setLastName(teacher.getLastName());
+        teacher1.setEmail(teacher.getEmail());
+        entityManager.merge(teacher1);
 
     }
 }

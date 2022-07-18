@@ -23,8 +23,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void saveStudent(Student student) {
-        studentDAO.saveStudent(student);
+    public void saveStudent(Student student,Long id) {
+        studentDAO.saveStudent(student,id);
     }
 
     @Override
@@ -38,7 +38,17 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void updateStudent(Student student) {
-        studentDAO.updateStudent(student);
+    public void updateStudent(Student student,Long id) {
+        studentDAO.updateStudent(student,id);
+    }
+
+    @Override
+    public List<Student> findByStudentName(String name) {
+        return studentDAO.findByName(name);
+    }
+
+    @Override
+    public List<Student> getStudentsByCompany(Long companyId) {
+        return studentDAO.getStudentsByCompany(companyId);
     }
 }

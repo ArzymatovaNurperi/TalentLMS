@@ -30,4 +30,8 @@ public class Student {
 
     @Transient
     private Long groupId;
+
+   @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.REMOVE})
+    private Group group;
+
 }
